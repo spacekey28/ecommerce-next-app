@@ -4,7 +4,7 @@ const Name = () => {
   const router = useRouter();
   const { name } = router.query;
   return (
-    <p>Welcome {name}</p>
+    <p>Welcome {name}! Testing...</p>
   );
 }
 
