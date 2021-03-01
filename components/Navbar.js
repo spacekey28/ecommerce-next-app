@@ -1,14 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-
-const UnstyledLink = styled.a`
-  text-decoration: none;
-  color: inherit;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
+import UnstyledLink from "./styled/UnstyledLink";
 
 const Nav = styled.nav`
   background: white;

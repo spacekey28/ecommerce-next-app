@@ -12,7 +12,6 @@ const Container = styled.div`
 const Page = styled.div`
   width: 100%;
   max-width: 768px;
-  background: lightgreen;
   margin: 0 auto;
 `;
 
