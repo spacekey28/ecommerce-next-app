@@ -1,7 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const useCart = () => {
+  const getInitialCart = () => JSON.parse(localStorage.getItem("cart"));
   const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    const initialCart = getInitialCart();
+    if (initialCart) {
+      setCart(initialCart);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
   const addItemToCart = (id, qty = 1) => {
     const item = cart.find(i => i.id === id);
 
