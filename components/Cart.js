@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { FiX } from 'react-icons/fi';
 import useCart from "../hooks/useCart";
+import { useRouter } from "next/router";
 
 const Container = styled.div`
   position: fixed;
@@ -75,10 +76,18 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
-  const { cart, isOpen, openCart, closeCart } = useCart();
+  const { cart, isOpen, openCart, closeCart, total } = useCart();
+  const router = useRouter();
+
   const handleClick = () => {
     closeCart();
   };
+
+  const navigateToCheckout = () => {
+    router.push("./checkout");
+    closeCart();
+  };
+   
   return (
     <Container isOpen={isOpen}>
       <XIconContainer>
@@ -86,23 +95,30 @@ const Cart = () => {
       </XIconContainer>
       <Content>
         <Title>Cart</Title>
-        <Ulist>
-          {cart.map(item => {
-            return (
-              <Item>
-                <span>{item.qty} x {item.name}</span>
-                <span>${item.price/100}</span>
-              </Item>
-            )
-          })}
-        </Ulist>
+        {cart.length > 0 ? (
+          <>
+            <Ulist>
+              {cart.map(item => {
+                return (
+                  <Item>
+                    <span>{item.qty} x {item.name}</span>
+                    <span>${item.price/100}</span>
+                  </Item>
+                )
+              })}
+            </Ulist>
 
-        <Total>
-          <span>Total</span>
-          <span>$500</span>
-        </Total>
+            <Total>
+              <span>Total</span>
+              <span>${total / 100}</span>
+            </Total>
 
-        <Button>Checkout</Button>
+            <Button onClick={navigateToCheckout}>Checkout</Button>
+          </>
+        ) : (
+          <p>Cart is empty.</p>
+        )}
+        
       </Content>
     </Container>
   );
