@@ -1,6 +1,7 @@
 import Page from "../components/styled/Page";
 import useCart from "../hooks/useCart";
 import styled from "styled-components";
+import axios from "axios";
 
 const Ulist = styled.ul`
   padding-left: 0;
@@ -41,7 +42,13 @@ const Button = styled.button`
 const Checkout = () => {
   const { cart, total } = useCart();
 
-  const processPayment = () => {
+  const processPayment = async () => {
+    const url = '/.netlify/functions/charge-card';
+    const newCart = cart.map(({ id, qty }) => ({
+      id,
+      qty,
+    }));
+    const { data } = await axios.post(url, { cart: newCart });
     console.log("checkout button clicked!");
   }
 
